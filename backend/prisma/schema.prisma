@@ -1,0 +1,77 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id Int @id @default(autoincrement())
+  username String @unique
+  description String
+  picture String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  email String @unique
+  password String 
+  role Role @default(USER)
+  posts Post[]
+  comments Comment[]
+  likes Like[]
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+model Post {
+  id Int @id @default(autoincrement())
+  title String
+  content String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  author User @relation(fields: [authorId], references: [id])
+  authorId Int
+  categories Category[] @relation(references: [id])
+  comments Comment[]
+  likes Like[]
+}
+
+model Category {
+  id    Int    @id @default(autoincrement())
+  type Type @default(value: TEXT)
+  posts Post[] @relation(references: [id])
+}
+
+enum Type  {
+  TEXT
+  MEDIA
+}
+
+model Comment {
+  id Int @id @default(autoincrement())
+  content String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  author User @relation(fields: [authorId], references: [id])
+  authorId Int
+  post Post @relation(fields: [postId], references: [id])
+  postId Int
+  likes Like[]
+}
+
+model Like {
+  id Int @id @default(autoincrement())
+  userliked User @relation(fields: [userlikedId], references: [id])
+  userlikedId Int
+  post Post @relation(fields: [postId], references: [id])
+  postId Int
+  comment Comment @relation(fields: [commentId], references: [id])
+  commentId Int
+}
