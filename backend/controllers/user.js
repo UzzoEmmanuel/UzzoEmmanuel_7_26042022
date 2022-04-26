@@ -4,10 +4,11 @@ const prisma = new PrismaClient();
 const cryptojs = require("crypto-js");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
+const fs = require("fs");
 require("dotenv").config();
 
 //-----------------------------------------------------------------------------------------------
-//création d'un compte. => à mettre à jour avec les méthode prisma!
+//création d'un profil utilisateur.
 exports.signup = (req, res, next) => {
   const hashedEmail = cryptojs
     .HmacSHA512(req.body.email, process.env.SECRET_CRYPTOJS_TOKEN)
@@ -32,7 +33,8 @@ exports.signup = (req, res, next) => {
     .catch((error) => res.status(500).json({ error }));
 };
 
-//connexion à un compte.
+//-----------------------------------------------------------------------------------------------
+//connexion à un profil utilisateur.
 exports.login = (req, res, next) => {
   const hashedEmail = cryptojs
     .HmacSHA512(req.body.email, process.env.SECRET_CRYPTOJS_TOKEN)
@@ -57,18 +59,75 @@ exports.login = (req, res, next) => {
             // }),
           });
         })
-        .catch((error) => res.status(500).json({ error: "c'est là" }));
+        .catch((error) => res.status(500).json({ error }));
       console.log(user.id);
-      console.log(user._id);
     })
-    .catch((error) => res.status(500).json({ error: "c'est là là" }));
+    .catch((error) => res.status(500).json({ error }));
 };
 
 //-----------------------------------------------------------------------------------------------
-//trouver la liste complête des utilisateurs.
+//accès à la liste des utilisateurs.
+exports.getAllUsers = (req, res, next) => {
+  prisma.user
+    .findMany()
+    .then((users) => res.status(200).json(users))
+    .catch((error) => res.status(400).json({ error: error }));
+};
 
-//trouver un utilisateur.
+//-----------------------------------------------------------------------------------------------
+//accès à un profil d'un utilisateur.
+exports.getOneUser = (req, res, next) => {
+  prisma.user
+    .findUnique({ where: { id: req.params.id } })
+    .then((user) => res.status(200).json(user))
+    .catch((error) => res.status(404).json({ error: error }));
+  console.log(id);
+};
 
+//-----------------------------------------------------------------------------------------------
 //modification d'un profil utilisateur.
+exports.modifyUser = (req, res, next) => {
+  if (req.file) {
+    prisma.user
+      .findUnique({ where: { id: req.params.id } })
+      .then((image) => {
+        const filename = image.picture.split("/images/")[1];
+        fs.unlink(`images/${filename}`, (error) => {
+          if (error) throw error;
+        });
+      })
+      .catch((error) => res.status(404).json({ error: error }));
+  }
+  const userObject = req.file
+    ? {
+        ...JSON.parse(req.body.user),
+        imageUrl: `${req.protocol}://${req.get("host")}/images/${
+          req.file.filename
+        }`,
+      }
+    : { ...req.body };
+  prisma.user
+    .update(
+      { id: req.params.id /*, userId: req.auth.user.id*/ },
+      { ...userObject, id: req.params.id }
+    )
+    .then(() => res.status(200).json({ message: "profil modifié" }))
+    .catch((error) => res.status(400).json({ error }));
+};
 
+//-----------------------------------------------------------------------------------------------
 //suppression d'un profil utilisateur.
+exports.deleteUser = (req, res, next) => {
+  prisma.user
+    .findUnique({ where: { id: req.params.id /*, userId: req.auth.userId*/ } })
+    .then((user) => {
+      const filename = user.picture.split("/images/")[1];
+      fs.unlink(`images/${filename}`, () => {
+        prisma.user
+          .delete({ where: { id: req.params.id } })
+          .then(() => res.status(200).json({ message: "profil supprimé" }))
+          .catch((error) => res.status(400).json({ error }));
+      });
+    })
+    .catch((error) => res.status(500).json({ error }));
+};
