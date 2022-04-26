@@ -21,7 +21,9 @@ exports.signup = (req, res, next) => {
           data: {
             username: req.body.username,
             description: req.body.description,
-            picture: req.body.picture,
+            picture: `${req.protocol}://${req.get("host")}/images/${
+              req.file.filename
+            }`,
             email: hashedEmail,
             password: hash,
             role: req.body.role,
@@ -85,7 +87,7 @@ exports.getOneUser = (req, res, next) => {
 };
 
 //-----------------------------------------------------------------------------------------------
-//modification d'un profil utilisateur.
+//modification d'un profil utilisateur. (pas encore testé)
 exports.modifyUser = (req, res, next) => {
   if (req.file) {
     prisma.user
@@ -116,7 +118,7 @@ exports.modifyUser = (req, res, next) => {
 };
 
 //-----------------------------------------------------------------------------------------------
-//suppression d'un profil utilisateur.
+//suppression d'un profil utilisateur. (pas encore testé)
 exports.deleteUser = (req, res, next) => {
   prisma.user
     .findUnique({ where: { id: req.params.id /*, userId: req.auth.userId*/ } })

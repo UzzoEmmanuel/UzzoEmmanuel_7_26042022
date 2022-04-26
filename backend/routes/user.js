@@ -24,7 +24,7 @@ router.get("/", userCtrl.getAllUsers);
 router.get("/:id", userCtrl.getOneUser);
 
 //modification d'un profil utilisateur.
-router.put("/:id", userCtrl.modifyUser);
+router.put("/:id", /*multer,*/ userCtrl.modifyUser);
 
 //suppression d'un profil utilisateur.
 router.delete("/:id", userCtrl.deleteUser);
