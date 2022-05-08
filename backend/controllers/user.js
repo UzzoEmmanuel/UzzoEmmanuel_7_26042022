@@ -21,7 +21,9 @@ exports.signup = (req, res, next) => {
           data: {
             username: req.body.username,
             description: req.body.description,
-            picture: req.body.picture,
+            picture: `${req.protocol}://${req.get("host")}/images/${
+              req.file.filename
+            }`,
             email: hashedEmail,
             password: hash,
             role: req.body.role,
@@ -29,6 +31,7 @@ exports.signup = (req, res, next) => {
         })
         .then(() => res.status(201).json({ message: "utilisateur créé" }))
         .catch((error) => res.status(400).json({ error }));
+      console.log(picture);
     })
     .catch((error) => res.status(500).json({ error: "ici" }));
 };
@@ -93,7 +96,9 @@ exports.updateUser = (req, res, next) => {
           data: {
             username: req.body.username,
             description: req.body.description,
-            picture: req.body.picture,
+            picture: `${req.protocol}://${req.get("host")}/images/${
+              req.file.filename
+            }`,
             role: req.body.role,
           },
         })
@@ -112,12 +117,14 @@ exports.updateUser = (req, res, next) => {
 exports.deleteUser = (req, res, next) => {
   try {
     if (+req.params.id === req.auth.userId)
-      prisma.user
-        .delete({
-          where: { id: +req.params.id },
-        })
-        .then(() => res.status(200).json({ message: "profil supprimé" }))
-        .catch((error) => res.status(400).json({ error }));
+      fs.unlink(`images/${filename}`, () => {
+        prisma.user
+          .delete({
+            where: { id: +req.params.id },
+          })
+          .then(() => res.status(200).json({ message: "profil supprimé" }))
+          .catch((error) => res.status(400).json({ error }));
+      });
     else {
       res.status(401).json({ error: "requête non authentifiée" });
     }
