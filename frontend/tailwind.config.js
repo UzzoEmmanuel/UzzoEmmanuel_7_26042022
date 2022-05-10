@@ -3,11 +3,34 @@ module.exports = {
     // removeDeprecatedGapUtilities: true,
     // purgeLayersByDefault: true,
   },
-  content: ['./src/**/*.{js,jsx,ts,tsx}'],
-  purge: [],
+  content: ['./public/**/*.html', './src/**/*.{js,jsx,ts,tsx}'],
   theme: {
+    colors: {
+      blue: '#091f43',
+      transparentBlue: 'rgba(9,31,67,0.5)',
+      red: '#d1515a',
+      transparentRed: 'rgba(209,81,90,0.5)',
+      grey: '#afafaf',
+      transparentGrey: 'rgba(175,175,175,0.5)',
+      white: '#ffffff',
+    },
+    fontFamily: {
+      sans: ['Montserrat', 'sans-serif'],
+    },
     extend: {},
   },
-  variants: {},
-  plugins: [],
+  plugins: [
+    require('@tailwindcss/typography'),
+    require('@tailwindcss/forms'),
+    require('@tailwindcss/line-clamp'),
+    require('@tailwindcss/aspect-ratio'),
+  ],
+  // prefix: 'tw-',
+  // important: true,
+  // separator: '_',
+  // corePlugins: {
+  //   float: false,
+  //   objectFit: false,
+  //   objectPosition: false,
+  // },
 }
