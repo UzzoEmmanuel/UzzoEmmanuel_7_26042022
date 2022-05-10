@@ -1,162 +1,201 @@
-import styled from 'styled-components'
-import DarkLogo from '../../assets/dark-logo.png'
+import LightLogo from '../../assets/light-logo.png'
+import { LockClosedIcon } from '@heroicons/react/solid'
 
-const ConnexionLogo = styled.img`
-  height: 200px;
-
-  object-fit: contain;
-  display: flex;
-  justify-content: center;
-`
-const ConnexionWrapper = styled.div`
-  display: flex;
-  flex-direction: column;
-`
-
-const ConnexionContainer = styled.div`
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  align-items: center;
-  @media screen and (max-width: 1023px) {
-    flex-direction: column;
-  }
-`
-
-const Login = () => (
-  <div class="flex flex-col w-full max-w-md px-4 py-8 bg-white rounded-lg shadow dark:bg-gray-800 sm:px-6 md:px-8 lg:px-10">
-    <div class="self-center mb-6 text-xl font-light text-gray-600 sm:text-2xl dark:text-white">
-      Login To Your Account
-    </div>
-    <div class="mt-8">
-      <form action="#" autoComplete="off">
-        <div class="flex flex-col mb-2">
-          <div class="flex relative ">
-            <span class="rounded-l-md inline-flex  items-center px-3 border-t bg-white border-l border-b  border-gray-300 text-gray-500 shadow-sm text-sm">
-              <svg
-                width="15"
-                height="15"
-                fill="currentColor"
-                viewBox="0 0 1792 1792"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path d="M1792 710v794q0 66-47 113t-113 47h-1472q-66 0-113-47t-47-113v-794q44 49 101 87 362 246 497 345 57 42 92.5 65.5t94.5 48 110 24.5h2q51 0 110-24.5t94.5-48 92.5-65.5q170-123 498-345 57-39 100-87zm0-294q0 79-49 151t-122 123q-376 261-468 325-10 7-42.5 30.5t-54 38-52 32.5-57.5 27-50 9h-2q-23 0-50-9t-57.5-27-52-32.5-54-38-42.5-30.5q-91-64-262-182.5t-205-142.5q-62-42-117-115.5t-55-136.5q0-78 41.5-130t118.5-52h1472q65 0 112.5 47t47.5 113z"></path>
-              </svg>
-            </span>
-            <input
-              type="text"
-              id="sign-in-email"
-              class=" rounded-r-lg flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
-              placeholder="Your email"
-            />
-          </div>
-        </div>
-        <div class="flex flex-col mb-6">
-          <div class="flex relative ">
-            <span class="rounded-l-md inline-flex  items-center px-3 border-t bg-white border-l border-b  border-gray-300 text-gray-500 shadow-sm text-sm">
-              <svg
-                width="15"
-                height="15"
-                fill="currentColor"
-                viewBox="0 0 1792 1792"
-                xmlns="http://www.w3.org/2000/svg"
-              >
-                <path d="M1376 768q40 0 68 28t28 68v576q0 40-28 68t-68 28h-960q-40 0-68-28t-28-68v-576q0-40 28-68t68-28h32v-320q0-185 131.5-316.5t316.5-131.5 316.5 131.5 131.5 316.5q0 26-19 45t-45 19h-64q-26 0-45-19t-19-45q0-106-75-181t-181-75-181 75-75 181v320h736z"></path>
-              </svg>
-            </span>
-            <input
-              type="password"
-              id="sign-in-email"
-              class=" rounded-r-lg flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
-              placeholder="Your password"
-            />
-          </div>
-        </div>
-        <div class="flex items-center mb-6 -mt-4"></div>
-        <div class="flex w-full">
-          <button
-            type="submit"
-            class="py-2 px-4  bg-purple-600 hover:bg-purple-700 focus:ring-purple-500 focus:ring-offset-purple-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg "
-          >
-            Login
-          </button>
-        </div>
-      </form>
-    </div>
-  </div>
-)
-
-const SignUp = () => (
-  <div class="flex flex-col max-w-md px-4 py-8 bg-white rounded-lg shadow dark:bg-gray-800 sm:px-6 md:px-8 lg:px-10">
-    <div class="self-center mb-2 text-xl font-light text-gray-800 sm:text-2xl dark:text-white">
-      Create a new account
-    </div>
-    <div class="p-6 mt-8">
-      <form action="#">
-        <div class="flex flex-col mb-2">
-          <div class=" relative ">
-            <input
-              type="text"
-              id="create-account-pseudo"
-              class=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
-              name="pseudo"
-              placeholder="Pseudo"
-            />
-          </div>
-        </div>
-        <div class="flex gap-4 mb-2">
-          <div class=" relative ">
-            <input
-              type="text"
-              id="create-account-first-name"
-              class=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
-              name="First name"
-              placeholder="First name"
-            />
-          </div>
-          <div class=" relative ">
-            <input
-              type="text"
-              id="create-account-last-name"
-              class=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
-              name="Last name"
-              placeholder="Last name"
-            />
-          </div>
-        </div>
-        <div class="flex flex-col mb-2">
-          <div class=" relative ">
-            <input
-              type="text"
-              id="create-account-email"
-              class=" rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
-              placeholder="Email"
-            />
-          </div>
-        </div>
-        <div class="flex w-full my-4">
-          <button
-            type="submit"
-            class="py-2 px-4  bg-purple-600 hover:bg-purple-700 focus:ring-purple-500 focus:ring-offset-purple-200 text-white w-full transition ease-in duration-200 text-center text-base font-semibold shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2  rounded-lg "
-          >
-            Login
-          </button>
-        </div>
-      </form>
-    </div>
-  </div>
-)
-
-function Connexion() {
+export default function Connexion() {
   return (
-    <ConnexionWrapper>
-      <ConnexionLogo src={DarkLogo} />
-      <ConnexionContainer>
-        <Login />
-        <SignUp />
-      </ConnexionContainer>
-    </ConnexionWrapper>
+    <>
+      <div>
+        <header className="flex justify-center h-100 w-100 bg-transparentBlue">
+          <img
+            src={LightLogo}
+            alt="logo groupomania"
+            className="object-cover max-w-full h-auto my-10 px-20"
+          />
+        </header>
+        <main className="flex md:flex-row flex-wrap justify-around my-20">
+          <div className="h-96 w-80 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 mb-20 border-4 border-blue rounded-lg bg-transparentGrey">
+            <div className="max-w-md w-full space-y-8">
+              <div>
+                <h2 className="mt-6 text-center text-3xl font-extrabold text-blue">
+                  Log in
+                </h2>
+              </div>
+              <form className="mt-8 space-y-6" action="#" method="POST">
+                <input type="hidden" name="remember" defaultValue="true" />
+                <div className="shadow-sm -space-y-px">
+                  <div className="mb-5">
+                    <label htmlFor="email-address" className="sr-only">
+                      Email address
+                    </label>
+                    <input
+                      id="email-address"
+                      name="email"
+                      type="email"
+                      autoComplete="email"
+                      required
+                      className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-blue focus:border-blue focus:z-10 sm:text-sm"
+                      placeholder="Email address"
+                    />
+                  </div>
+                  <div>
+                    <label htmlFor="password" className="sr-only">
+                      Password
+                    </label>
+                    <input
+                      id="password"
+                      name="password"
+                      type="password"
+                      autoComplete="current-password"
+                      required
+                      className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-blue focus:border-blue focus:z-10 sm:text-sm"
+                      placeholder="Password"
+                    />
+                  </div>
+                </div>
+                <div>
+                  <button
+                    type="submit"
+                    className="group relative w-full flex justify-center py-2 px-4 border-2 border-blue text-sm font-bold rounded-md text-blue hover:border-white hover:text-white "
+                  >
+                    <span className="absolute left-0 inset-y-0 flex items-center pl-3">
+                      <LockClosedIcon
+                        className="h-5 w-5 text-blue group-hover:text-white"
+                        aria-hidden="true"
+                      />
+                    </span>
+                    Log in
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+          <div className="min-h-full md:w-auto w-80 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 mb-20 border-4 border-blue rounded-lg bg-transparentGrey">
+            <div className="max-w-md w-full space-y-8">
+              <div>
+                <h2 className="mt-6 text-center text-3xl font-extrabold text-blue">
+                  Sign up
+                </h2>
+              </div>
+              <form className="mt-8 space-y-6" action="#" method="POST">
+                <input type="hidden" name="remember" defaultValue="true" />
+                <div className="shadow-sm">
+                  <div className="mb-5">
+                    <label htmlFor="username" className="sr-only">
+                      Username
+                    </label>
+                    <input
+                      id="username"
+                      name="username"
+                      type="text"
+                      autoComplete="username"
+                      required
+                      className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-blue focus:border-blue focus:z-10 sm:text-sm"
+                      placeholder="Username"
+                    />
+                  </div>
+                  <div className="mb-5">
+                    <label htmlFor="description" className="sr-only">
+                      Description
+                    </label>
+                    <input
+                      id="description"
+                      name="description"
+                      type="text"
+                      autoComplete="description"
+                      required
+                      className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-blue focus:border-blue focus:z-10 sm:text-sm"
+                      placeholder="Description"
+                    />
+                  </div>
+                  <div className="mb-5">
+                    <label htmlFor="email-address" className="sr-only">
+                      Email address
+                    </label>
+                    <input
+                      id="email-address"
+                      name="email"
+                      type="email"
+                      autoComplete="email"
+                      required
+                      className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-blue focus:border-blue focus:z-10 sm:text-sm"
+                      placeholder="Email address"
+                    />
+                  </div>
+                  <div className="mb-5">
+                    <label htmlFor="password" className="sr-only">
+                      Password
+                    </label>
+                    <input
+                      id="password"
+                      name="password"
+                      type="password"
+                      autoComplete="current-password"
+                      required
+                      className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-blue focus:border-blue focus:z-10 sm:text-sm"
+                      placeholder="Password"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-sm font-bold text-blue">
+                      Profile picture
+                    </label>
+                    <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-blue border-dashed rounded-md">
+                      <div className="space-y-1 text-center">
+                        <svg
+                          className="mx-auto h-12 w-12 text-blue"
+                          stroke="currentColor"
+                          fill="none"
+                          viewBox="0 0 48 48"
+                          aria-hidden="true"
+                        >
+                          <path
+                            d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8m-12 4h.02"
+                            strokeWidth={2}
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                          />
+                        </svg>
+                        <div className="flex text-sm">
+                          <label
+                            htmlFor="file-upload"
+                            className="relative cursor-pointer bg-white px-1 rounded-md font-medium text-blue hover:text-white hover:bg-blue focus-within:outline-none focus-within:ring-1 focus-within:ring-offset-1 focus-within:ring-white"
+                          >
+                            <span>Upload a file</span>
+                            <input
+                              id="file-upload"
+                              name="file-upload"
+                              type="file"
+                              className="sr-only"
+                            />
+                          </label>
+                          <p className="pl-1 text-blue"> or drag and drop</p>
+                        </div>
+                        <p className="text-sm text-blue">
+                          PNG, JPG, GIF up to 10MB
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div>
+                  <button
+                    type="submit"
+                    className="group relative w-full flex justify-center py-2 px-4 border-2 border-blue text-sm font-bold rounded-md text-blue hover:border-white hover:text-white"
+                  >
+                    <span className="absolute left-0 inset-y-0 flex items-center pl-3">
+                      <LockClosedIcon
+                        className="h-5 w-5 text-blue group-hover:text-white"
+                        aria-hidden="true"
+                      />
+                    </span>
+                    Sign in
+                  </button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </main>
+      </div>
+    </>
   )
 }
-
-export default Connexion
