@@ -1,87 +1,70 @@
-import LightLogo from '../../assets/light-logo.png'
-import { LockClosedIcon } from '@heroicons/react/solid'
+import GenericProfilPicture from '../../assets/profil.png'
+import { UploadIcon } from '@heroicons/react/solid'
+import Header from '../../components/Header'
 
-export default function Connexion() {
+export default function User() {
   return (
     <>
-      <div>
-        <header className="flex justify-center flex-col h-60 w-100 bg-transparent_primary">
-          <img
-            src={LightLogo}
-            alt="logo groupomania"
-            className="object-cover max-w-full h-auto my-10 px-20"
-          />
-        </header>
-        <div className="mt-10 flex flex-col">
+      <Header />
+      <main>
+        <div className="mt-10 after:mb-32 flex flex-col">
           <div className="flex md:justify-start justify-center">
             <h1 className="w-auto mx-10 text-3xl text-primary font-bold tracking-widest">
-              BIENVENUE
+              MON PROFIL
             </h1>
+          </div>
+          <span className="after:content-[''] after:mx-10 after:mt-2 after:h-2.5 after:block after:bg-secondary"></span>
+        </div>
+        <div className="flex items-center h-auto w-full justify-center">
+          <div className="max-w-xs">
+            <div className="bg-transparent_background border-4 border-primary rounded-lg shadow-xl rounded-lg py-3">
+              <div className="photo-wrapper p-2">
+                <img
+                  className="w-32 h-32 border-2 border-primary rounded-full mx-auto"
+                  src={GenericProfilPicture}
+                  alt="John Doe"
+                ></img>
+              </div>
+              <div className="p-2">
+                <h3 className="text-center text-xl text-primary font-bold leading-8">
+                  Username
+                </h3>
+                <table className="text-xs my-3">
+                  <tbody>
+                    <tr>
+                      <td className="px-2 py-2 text-primary font-semibold">
+                        Description
+                      </td>
+                      <td className="px-2 py-2 text-white font-medium">...</td>
+                    </tr>
+                    <tr>
+                      <td className="px-2 py-2 text-primary font-semibold">
+                        Email
+                      </td>
+                      <td className="px-2 py-2 text-white font-medium">
+                        john@exmaple.com
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div className="my-32 flex flex-col">
+          <div className="flex md:justify-start justify-center">
+            <h2 className="w-auto mx-10 text-2xl text-primary font-bold tracking-widest">
+              MODIFIER MON PROFIL
+            </h2>
           </div>
           <span className="after:content-[''] after:mx-10 after:my-2 after:h-2.5 after:block after:bg-secondary"></span>
         </div>
-        <main className="flex md:flex-row flex-wrap justify-around my-20">
-          <div className="h-96 w-80 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 mb-20 border-4 border-primary rounded-lg bg-transparent_background">
-            <div className="max-w-md w-full space-y-8">
-              <div>
-                <h2 className="mt-6 text-center text-3xl font-extrabold text-primary">
-                  Log in
-                </h2>
-              </div>
-              <form className="mt-8 space-y-6" action="#" method="POST">
-                <input type="hidden" name="remember" defaultValue="true" />
-                <div className="shadow-sm -space-y-px">
-                  <div className="mb-5">
-                    <label htmlFor="email-address" className="sr-only">
-                      Email address
-                    </label>
-                    <input
-                      id="email-address"
-                      name="email"
-                      type="email"
-                      autoComplete="email"
-                      required
-                      className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-primary focus:border-primary focus:z-10 sm:text-sm"
-                      placeholder="Email address"
-                    />
-                  </div>
-                  <div>
-                    <label htmlFor="password" className="sr-only">
-                      Password
-                    </label>
-                    <input
-                      id="password"
-                      name="password"
-                      type="password"
-                      autoComplete="current-password"
-                      required
-                      className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-primary focus:border-primary focus:z-10 sm:text-sm"
-                      placeholder="Password"
-                    />
-                  </div>
-                </div>
-                <div>
-                  <button
-                    type="submit"
-                    className="group relative w-full flex justify-center py-2 px-4 border-2 border-primary text-sm font-bold rounded-md text-primary hover:border-white hover:text-white "
-                  >
-                    <span className="absolute left-0 inset-y-0 flex items-center pl-3">
-                      <LockClosedIcon
-                        className="h-5 w-5 text-primary group-hover:text-white"
-                        aria-hidden="true"
-                      />
-                    </span>
-                    Log in
-                  </button>
-                </div>
-              </form>
-            </div>
-          </div>
+        <div className="flex md:flex-row flex-wrap justify-around my-20">
           <div className="min-h-full md:w-auto w-80 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 mb-20 border-4 border-primary rounded-lg bg-transparent_background">
             <div className="max-w-md w-full space-y-8">
               <div>
                 <h2 className="mt-6 text-center text-3xl font-extrabold text-primary">
-                  Sign up
+                  Upload
                 </h2>
               </div>
               <form className="mt-8 space-y-6" action="#" method="POST">
@@ -113,34 +96,6 @@ export default function Connexion() {
                       required
                       className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-primary focus:border-primary focus:z-10 sm:text-sm"
                       placeholder="Description"
-                    />
-                  </div>
-                  <div className="mb-5">
-                    <label htmlFor="email-address" className="sr-only">
-                      Email address
-                    </label>
-                    <input
-                      id="email-address"
-                      name="email"
-                      type="email"
-                      autoComplete="email"
-                      required
-                      className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-primary focus:border-primary focus:z-10 sm:text-sm"
-                      placeholder="Email address"
-                    />
-                  </div>
-                  <div className="mb-5">
-                    <label htmlFor="password" className="sr-only">
-                      Password
-                    </label>
-                    <input
-                      id="password"
-                      name="password"
-                      type="password"
-                      autoComplete="current-password"
-                      required
-                      className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-primary focus:border-primary focus:z-10 sm:text-sm"
-                      placeholder="Password"
                     />
                   </div>
                   <div>
@@ -191,19 +146,19 @@ export default function Connexion() {
                     className="group relative w-full flex justify-center py-2 px-4 border-2 border-primary text-sm font-bold rounded-md text-primary hover:border-white hover:text-white"
                   >
                     <span className="absolute left-0 inset-y-0 flex items-center pl-3">
-                      <LockClosedIcon
+                      <UploadIcon
                         className="h-5 w-5 text-primary group-hover:text-white"
                         aria-hidden="true"
                       />
                     </span>
-                    Sign in
+                    Upload
                   </button>
                 </div>
               </form>
             </div>
           </div>
-        </main>
-      </div>
+        </div>
+      </main>
     </>
   )
 }
