@@ -4,7 +4,7 @@
   "main": "server.js",
   "license": "MIT",
   "dependencies": {
-    "@prisma/client": "^3.13.0",
+    "@prisma/client": "^3.14.0",
     "@prisma/studio": "^0.459.0",
     "bcrypt": "^5.0.1",
     "cors": "^2.8.5",
