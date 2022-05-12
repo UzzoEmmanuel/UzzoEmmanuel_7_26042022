@@ -129,8 +129,8 @@ export default function Header() {
                   href={item.href}
                   className={classNames(
                     item.current
-                      ? 'text-white hover:bg-secondary'
-                      : 'text-white hover:bg-secondary',
+                      ? 'text-white hover:bg-transparent_secondary'
+                      : 'text-white hover:bg-transparent_secondary',
                     'block px-3 py-2 rounded-md text-base font-medium'
                   )}
                   aria-current={item.current ? 'page' : undefined}
