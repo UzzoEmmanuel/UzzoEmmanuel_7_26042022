@@ -1,10 +1,11 @@
 import Header from '../../components/Header'
+import Footer from '../../components/Footer'
 
 export default function Error() {
   return (
     <>
       <Header />
-      <div className="flex items-center justify-center w-screen h-screen">
+      <section className="flex items-center justify-center w-screen h-screen mb-20">
         <div className="w-9/12 max-w-3xl px-40 py-20 bg-transparent_background rounded-lg border-4 border-primary">
           <div className="flex flex-col items-center">
             <h1 className="font-bold text-primary text-9xl">404</h1>
@@ -16,7 +17,8 @@ export default function Error() {
             </p>
           </div>
         </div>
-      </div>
+      </section>
+      <Footer />
     </>
   )
 }
