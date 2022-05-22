@@ -1,6 +1,36 @@
+import React, { useState } from 'react'
+//import PropTypes from 'prop-types'
 import { LockClosedIcon } from '@heroicons/react/solid'
 
+async function signUpUser(data) {
+  return fetch('http://localhost:8000/api/signup', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(data),
+  }).then((data) => data.json())
+}
+
 export default function SignUp() {
+  const [username, setUsername] = useState()
+  const [description, setDescription] = useState()
+  const [email, setEmail] = useState()
+  const [password, setPassword] = useState()
+  const [picture, setPicture] = useState()
+
+  const submitData = async (e) => {
+    e.preventDefault()
+    await signUpUser({
+      username,
+      description,
+      email,
+      password,
+      picture,
+    })
+    console.log(username, description, email, password)
+  }
+
   return (
     <>
       <div className="min-h-full md:w-auto w-80 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 mb-20 border-4 border-primary rounded-lg bg-transparent_background">
@@ -10,7 +40,12 @@ export default function SignUp() {
               Sign up
             </h2>
           </div>
-          <form className="mt-8 space-y-6" action="#" method="POST">
+          <form
+            className="mt-8 space-y-6"
+            action="#"
+            method="POST"
+            onSubmit={submitData}
+          >
             <input type="hidden" name="remember" defaultValue="true" />
             <div className="shadow-sm">
               <div className="mb-5">
@@ -19,6 +54,7 @@ export default function SignUp() {
                 </label>
                 <input
                   id="username"
+                  onChange={(e) => setUsername(e.target.value)}
                   name="username"
                   type="text"
                   autoComplete="username"
@@ -33,6 +69,7 @@ export default function SignUp() {
                 </label>
                 <input
                   id="description"
+                  onChange={(e) => setDescription(e.target.value)}
                   name="description"
                   type="text"
                   autoComplete="description"
@@ -47,6 +84,7 @@ export default function SignUp() {
                 </label>
                 <input
                   id="email-address"
+                  onChange={(e) => setEmail(e.target.value)}
                   name="email"
                   type="email"
                   autoComplete="email"
@@ -61,6 +99,7 @@ export default function SignUp() {
                 </label>
                 <input
                   id="password"
+                  onChange={(e) => setPassword(e.target.value)}
                   name="password"
                   type="password"
                   autoComplete="current-password"
@@ -97,6 +136,7 @@ export default function SignUp() {
                         <span>Upload a file</span>
                         <input
                           id="file-upload"
+                          onChange={(e) => setPicture(e.target.value)}
                           name="file-upload"
                           type="file"
                           className="sr-only"
