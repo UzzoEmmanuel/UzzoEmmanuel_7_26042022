@@ -3,8 +3,15 @@ import Underline from '../../components/Underline'
 import Login from '../../components/Forms/Login'
 import SignUp from '../../components/Forms/SignUp'
 import Footer from '../../components/Footer'
+// import UseToken from '../../utils/hooks/UseToken'
 
 export default function Connexion() {
+  // const { token, setToken } = UseToken()
+
+  // if (!token) {
+  //   return <Connexion setToken={setToken} />
+  // }
+
   return (
     <>
       <header>
