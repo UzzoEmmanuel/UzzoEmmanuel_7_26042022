@@ -14,6 +14,11 @@ function classNames(...classes) {
 }
 
 export default function Header() {
+  function logout() {
+    localStorage.clear()
+    return window.location.reload(false)
+  }
+
   return (
     <Disclosure as="nav">
       {({ open }) => (
@@ -102,15 +107,15 @@ export default function Header() {
                       </Menu.Item>
                       <Menu.Item>
                         {({ active }) => (
-                          <a
-                            href="localhost:3000/connexion"
+                          <button
                             className={classNames(
                               active ? 'bg-white' : '',
                               'block px-4 py-2 text-sm text-secondary'
                             )}
+                            onClick={logout}
                           >
                             Sign out
-                          </a>
+                          </button>
                         )}
                       </Menu.Item>
                     </Menu.Items>
