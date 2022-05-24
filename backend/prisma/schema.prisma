@@ -13,8 +13,8 @@ datasource db {
 model User {
   id Int @id @default(autoincrement())
   username String @unique
-  description String
-  picture String
+  description String?
+  picture String?
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   email String @unique
