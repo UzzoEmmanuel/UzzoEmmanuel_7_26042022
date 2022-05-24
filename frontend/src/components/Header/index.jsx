@@ -3,6 +3,7 @@ import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { MenuIcon, XIcon } from '@heroicons/react/outline'
 import Logo from '../../assets/light-logo.png'
 import GenericProfilPicture from '../../assets/profil.png'
+import { logout } from '../../utils/context/AuthAction'
 
 const navigation = [
   { name: 'Dashboard', href: 'localhost:3000/dashboard', current: true },
@@ -14,11 +15,6 @@ function classNames(...classes) {
 }
 
 export default function Header() {
-  function logout() {
-    localStorage.clear()
-    return window.location.reload(false)
-  }
-
   return (
     <Disclosure as="nav">
       {({ open }) => (
