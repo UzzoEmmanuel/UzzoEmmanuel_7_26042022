@@ -20,20 +20,20 @@ exports.signup = (req, res, next) => {
         .create({
           data: {
             username: req.body.username,
-            description: req.body.description,
-            picture: `${req.protocol}://${req.get("host")}/images/${
-              req.file.filename
-            }`,
             email: hashedEmail,
             password: hash,
             role: req.body.role,
           },
         })
-        .then(() => res.status(201).json({ message: "utilisateur créé" }))
+        .then(() =>
+          res.status(201).json({
+            message: "utilisateur créé",
+            token: jwt.sign({}, process.env.SECRET_JWT_TOKEN),
+          })
+        )
         .catch((error) => res.status(400).json({ error }));
-      console.log(picture);
     })
-    .catch((error) => res.status(500).json({ error: "ici" }));
+    .catch((error) => res.status(500).json({ error }));
 };
 
 //-----------------------------------------------------------------------------------------------
@@ -60,7 +60,7 @@ exports.login = (req, res, next) => {
             token: jwt.sign({ userId: user.id }, process.env.SECRET_JWT_TOKEN),
           });
         })
-        .catch((error) => res.status(500).json({ error }));
+        .catch((error) => res.status(400).json({ error }));
     })
     .catch((error) => res.status(500).json({ error }));
 };
@@ -96,10 +96,31 @@ exports.updateUser = (req, res, next) => {
           data: {
             username: req.body.username,
             description: req.body.description,
+            role: req.body.role,
+          },
+        })
+        .then(() => res.status(200).json({ message: "profil modifié" }))
+        .catch((error) => res.status(400).json({ error }));
+    else {
+      res.status(401).json({ error: "requête non authentifiée" });
+    }
+  } catch {
+    res.status(500).json({ error });
+  }
+};
+
+//-----------------------------------------------------------------------------------------------
+//modification de la photo de profil utilisateur.
+exports.updateUserPicture = (req, res, next) => {
+  try {
+    if (+req.params.id === req.auth.userId)
+      prisma.user
+        .update({
+          where: { id: +req.params.id },
+          data: {
             picture: `${req.protocol}://${req.get("host")}/images/${
               req.file.filename
             }`,
-            role: req.body.role,
           },
         })
         .then(() => res.status(200).json({ message: "profil modifié" }))
