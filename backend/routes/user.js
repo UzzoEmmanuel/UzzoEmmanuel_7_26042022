@@ -9,7 +9,7 @@ const multer = require("../middlewares/multer-config");
 
 //-----------------------------------------------------------------------------------------------
 //création d'un profil utilisateur.
-router.post("/signup", checkEmail, checkPassword, multer, userCtrl.signup);
+router.post("/signup", checkEmail, checkPassword, userCtrl.signup);
 
 //connexion à un profil utilisateur.
 router.post("/login", userCtrl.login);
@@ -21,7 +21,10 @@ router.get("/users", auth, userCtrl.getUsers);
 router.get("/user/:id", auth, userCtrl.getUser);
 
 //modification d'un profil utilisateur.
-router.put("/user/:id", auth, multer, userCtrl.updateUser);
+router.put("/user/:id", auth, userCtrl.updateUser);
+
+//modification de la photo de profil utilisateur.
+router.put("/user/:id", auth, multer, userCtrl.updateUserPicture);
 
 //suppression d'un profil utilisateur.
 router.delete("/user/:id", auth, userCtrl.deleteUser);

@@ -1,21 +1,31 @@
-import React, { useState } from 'react'
+import React, { useState, useContext } from 'react'
 import { LockClosedIcon } from '@heroicons/react/solid'
+import AuthContext from '../../../utils/context/AuthContext'
 import { signupUser } from '../../../utils/context/AuthAction'
 
 export default function SignUp() {
   const [username, setUsername] = useState()
-
   const [email, setEmail] = useState()
   const [password, setPassword] = useState()
 
+  const { isAuthenticated } = useContext(AuthContext)
+
+  function refreshPage() {
+    if (!isAuthenticated) {
+      return window.location.reload(false)
+    }
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault()
-    await signupUser({
+    const data = await signupUser({
       username,
       email,
       password,
     })
     console.log(username, email, password)
+    localStorage.setItem('token', data.token)
+    refreshPage()
   }
 
   return (
