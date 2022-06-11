@@ -57,6 +57,7 @@ exports.login = (req, res, next) => {
           res.status(200).json({
             message: "utilsateur vérifié",
             userId: user.id,
+            role: user.role,
             token: jwt.sign({ userId: user.id }, process.env.SECRET_JWT_TOKEN),
           });
         })
@@ -83,6 +84,29 @@ exports.getUser = (req, res, next) => {
     .catch((error) =>
       res.status(404).json({ error: "utilisateur non trouvé" })
     );
+};
+
+//-----------------------------------------------------------------------------------------------
+//accès au profil utilisateur pour authentification côté frontend.
+exports.getMe = (req, res, next) => {
+  let token = req.headers.authorization.split(" ")[1];
+  if (!token)
+    return res
+      .status(401)
+      .send({ auth: false, message: "aucun token n'est trouvé" });
+
+  jwt.verify(token, process.env.SECRET_JWT_TOKEN, function (err) {
+    if (err)
+      return res
+        .status(500)
+        .send({ auth: false, message: "token non authentifié" });
+    prisma.user
+      .findUnique({ where: { id: req.auth.userId } })
+      .then((user) => res.status(200).json(user))
+      .catch((error) =>
+        res.status(404).json({ error: "utilisateur non trouvé" })
+      );
+  });
 };
 
 //-----------------------------------------------------------------------------------------------

@@ -2,8 +2,16 @@ import Header from '../../components/Header'
 import Underline from '../../components/Underline'
 import Card from '../../components/Card'
 import Footer from '../../components/Footer'
+import { getUsers } from '../../utils/context/AuthAction'
 
 export default function Users() {
+  const getUsersData = async () => {
+    await getUsers().then((res) => {
+      console.log(res)
+      return res
+    })
+  }
+  getUsersData()
   return (
     <>
       <Header />
