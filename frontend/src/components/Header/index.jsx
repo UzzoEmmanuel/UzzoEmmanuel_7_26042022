@@ -1,20 +1,23 @@
-import { Fragment } from 'react'
+import React, { Fragment } from 'react'
+import { Link } from 'react-router-dom'
 import { Disclosure, Menu, Transition } from '@headlessui/react'
 import { MenuIcon, XIcon } from '@heroicons/react/outline'
 import Logo from '../../assets/light-logo.png'
 import GenericProfilPicture from '../../assets/profil.png'
-import { logout } from '../../utils/context/AuthAction'
-
-const navigation = [
-  { name: 'Dashboard', href: 'localhost:3000/dashboard', current: true },
-  { name: 'Team', href: 'localhost:3000/users', current: false },
-]
+import { useAuth } from '../../utils/context'
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
 }
 
 export default function Header() {
+  const { logout } = useAuth()
+
+  const navigation = [
+    { name: 'Dashboard', href: '/' },
+    { name: 'Team', href: '/users' },
+  ]
+
   return (
     <Disclosure as="nav">
       {({ open }) => (
@@ -48,19 +51,13 @@ export default function Header() {
                 <div className="hidden sm:block sm:ml-6">
                   <div className="flex space-x-4">
                     {navigation.map((item) => (
-                      <a
+                      <Link
                         key={item.name}
-                        href={item.href}
-                        className={classNames(
-                          item.current
-                            ? 'hover:bg-transparent_secondary text-white'
-                            : 'hover:bg-transparent_secondary text-white',
-                          'px-3 py-2 rounded-md text-sm font-medium'
-                        )}
-                        aria-current={item.current ? 'page' : undefined}
+                        to={item.href}
+                        className="hover:bg-transparent_secondary text-white px-3 py-2 rounded-md text-sm font-medium"
                       >
                         {item.name}
-                      </a>
+                      </Link>
                     ))}
                   </div>
                 </div>
@@ -87,18 +84,19 @@ export default function Header() {
                     leaveFrom="transform opacity-100 scale-100"
                     leaveTo="transform opacity-0 scale-95"
                   >
-                    <Menu.Items className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+                    <Menu.Items className="origin-top-right absolute right-0 mt-2 w-48 rounded-md shadow-lg py-1 bg-white ring-1 ring-black ring-opacity-5 focus:outline-none border-2 border-white">
                       <Menu.Item>
                         {({ active }) => (
-                          <a
-                            href="localhost:3000/user"
-                            className={classNames(
-                              active ? 'bg-white' : '',
-                              'block px-4 py-2 text-sm text-primary'
-                            )}
-                          >
-                            Your Profile
-                          </a>
+                          <Link to="/user">
+                            <button
+                              className={classNames(
+                                active ? 'bg-white' : '',
+                                'block px-4 py-2 text-sm text-primary w-full flex justify-start hover:bg-transparent_primary hover:text-white'
+                              )}
+                            >
+                              Your Profile
+                            </button>
+                          </Link>
                         )}
                       </Menu.Item>
                       <Menu.Item>
@@ -106,7 +104,7 @@ export default function Header() {
                           <button
                             className={classNames(
                               active ? 'bg-white' : '',
-                              'block px-4 py-2 text-sm text-secondary'
+                              'block px-4 py-2 text-sm text-secondary w-full flex justify-start hover:bg-transparent_secondary hover:text-white'
                             )}
                             onClick={logout}
                           >

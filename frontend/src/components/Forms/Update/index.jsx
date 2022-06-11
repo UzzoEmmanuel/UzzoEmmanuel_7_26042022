@@ -1,6 +1,24 @@
+import React, { useState } from 'react'
 import { UploadIcon } from '@heroicons/react/solid'
+import { updateProfil } from '../../../utils/context/AuthAction'
 
 export default function Update() {
+  const [username, setUsername] = useState()
+  const [description, setDescription] = useState()
+
+  function refreshPage() {
+    return window.location.reload(false)
+  }
+
+  const handleSubmit = async (e) => {
+    e.preventDefault()
+    await updateProfil({
+      username,
+      description,
+    })
+    refreshPage()
+  }
+
   return (
     <>
       <div className="min-h-full md:w-auto w-80 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 mb-20 border-4 border-primary rounded-lg bg-transparent_background">
@@ -10,7 +28,12 @@ export default function Update() {
               Update
             </h2>
           </div>
-          <form className="mt-8 space-y-6" action="#" method="POST">
+          <form
+            className="mt-8 space-y-6"
+            action="#"
+            method="PUT"
+            onSubmit={handleSubmit}
+          >
             <input type="hidden" name="remember" defaultValue="true" />
             <div className="shadow-sm">
               <div className="mb-5">
@@ -22,9 +45,9 @@ export default function Update() {
                   name="username"
                   type="text"
                   autoComplete="username"
-                  required
                   className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-primary focus:border-primary focus:z-10 sm:text-sm"
                   placeholder="Username"
+                  onChange={(e) => setUsername(e.target.value)}
                 />
               </div>
               <div className="mb-5">
@@ -36,9 +59,9 @@ export default function Update() {
                   name="description"
                   type="text"
                   autoComplete="description"
-                  required
                   className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-primary focus:border-primary focus:z-10 sm:text-sm"
                   placeholder="Description"
+                  onChange={(e) => setDescription(e.target.value)}
                 />
               </div>
               <div>
