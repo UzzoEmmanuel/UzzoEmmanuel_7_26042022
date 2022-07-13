@@ -9,7 +9,6 @@ import { useAuth } from '../../utils/context/AuthContext'
 
 export default function App() {
   const { isAuthenticated } = useAuth()
-  console.log(isAuthenticated)
   return !isAuthenticated ? (
     <Router>
       <Routes>

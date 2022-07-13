@@ -1,81 +1,18 @@
-const ROOT_URL = 'http://localhost:8000/api'
+import { axios } from '../../axios'
 
 //--------------------------------------------------------------------------------------------------------------------------------------------
-export async function getUser(data) {
-  const getUserId = localStorage.getItem('userId')
-  const userId = getUserId
+export const GetUser = (userId) => axios.get(`user/${userId}`)
 
-  const getToken = localStorage.getItem('token')
-  const token = getToken
+//--------------------------------------------------------------------------------------------------------------------------------------------
+export const GetUsers = () => axios.get(`users`)
 
-  return fetch(`${ROOT_URL}/user/${userId}`, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`,
-    },
-    body: JSON.stringify(data),
-  }).then((data) => data.json())
+//--------------------------------------------------------------------------------------------------------------------------------------------
+export const UpdateUser = (userId, data) => axios.put(`user/${userId}`, data)
+
+//--------------------------------------------------------------------------------------------------------------------------------------------
+export const UpdateUserPicture = (userId, file) => {
+  axios.put(`user/${userId}/picture`, file)
 }
 
 //--------------------------------------------------------------------------------------------------------------------------------------------
-export async function getUsers(data) {
-  const getToken = localStorage.getItem('token')
-  const token = getToken
-
-  return fetch(`${ROOT_URL}/users`, {
-    method: 'GET',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`,
-    },
-    body: JSON.stringify(data),
-  }).then((data) => data.json())
-}
-
-//--------------------------------------------------------------------------------------------------------------------------------------------
-export async function updateProfil(data) {
-  const getUserId = localStorage.getItem('userId')
-  const userId = getUserId
-
-  const getToken = localStorage.getItem('token')
-  const token = getToken
-
-  return fetch(`${ROOT_URL}/user/${userId}`, {
-    method: 'PUT',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`,
-    },
-    body: JSON.stringify(data),
-  }).then((data) => data.json())
-}
-
-//--------------------------------------------------------------------------------------------------------------------------------------------
-// export async function updatePicture(data) {
-//   return fetch(`${ROOT_URL}/user/:id/picture`, {
-//     method: 'PUT',
-//     headers: {
-//       'Content-Type': 'application/json',
-//     },
-//     body: JSON.stringify(data),
-//   }).then((data) => data.json())
-// }
-
-//--------------------------------------------------------------------------------------------------------------------------------------------
-export async function deleteProfil(data) {
-  const getUserId = localStorage.getItem('userId')
-  const userId = getUserId
-
-  const getToken = localStorage.getItem('token')
-  const token = getToken
-
-  return fetch(`${ROOT_URL}/user/${userId}`, {
-    method: 'DELETE',
-    headers: {
-      'Content-Type': 'application/json',
-      Authorization: `Bearer ${token}`,
-    },
-    body: JSON.stringify(data),
-  }).then((data) => data.json())
-}
+export const DeleteUser = (userId) => axios.delete(`user/${userId}`)

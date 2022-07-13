@@ -16,6 +16,7 @@ export default function SignUp() {
       email,
       password,
     })
+
     if (isAuthenticated) {
       return logout()
     }

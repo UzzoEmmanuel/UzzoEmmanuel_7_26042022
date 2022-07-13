@@ -2,16 +2,17 @@ import Header from '../../components/Header'
 import Underline from '../../components/Underline'
 import Card from '../../components/Card'
 import Footer from '../../components/Footer'
-import { getUsers } from '../../utils/context/AuthAction'
+import { GetUsers } from '../../utils/context/AuthAction'
+
+import { useState, useEffect } from 'react'
 
 export default function Users() {
-  const getUsersData = async () => {
-    await getUsers().then((res) => {
-      console.log(res)
-      return res
-    })
-  }
-  getUsersData()
+  const [users, setUsers] = useState([])
+
+  useEffect(() => {
+    GetUsers().then((response) => setUsers(response.data))
+  }, [])
+
   return (
     <>
       <Header />
@@ -25,9 +26,13 @@ export default function Users() {
           <Underline />
         </div>
         <section className="flex flex-wrap justify-around h-auto w-full mb-20">
-          <Card />
-          <Card />
-          <Card />
+          {users.map((user) => (
+            <Card
+              key={user.id}
+              username={user.username}
+              description={user.description}
+            />
+          ))}
         </section>
       </main>
       <Footer />
