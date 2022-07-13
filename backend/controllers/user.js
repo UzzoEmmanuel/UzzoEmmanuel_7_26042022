@@ -25,10 +25,11 @@ exports.signup = (req, res, next) => {
             role: req.body.role,
           },
         })
-        .then(() =>
+        .then((data) =>
           res.status(201).json({
             message: "utilisateur créé",
-            token: jwt.sign({}, process.env.SECRET_JWT_TOKEN),
+            token: jwt.sign({ userId: data.id }, process.env.SECRET_JWT_TOKEN),
+            user: data,
           })
         )
         .catch((error) => res.status(400).json({ error }));
@@ -52,12 +53,12 @@ exports.login = (req, res, next) => {
         .compare(req.body.password, user.password)
         .then((valid) => {
           if (!valid) {
+            //403
             return res.status(401).json({ error: "mot de passe incorrect" });
           }
           res.status(200).json({
             message: "utilsateur vérifié",
-            userId: user.id,
-            role: user.role,
+            user,
             token: jwt.sign({ userId: user.id }, process.env.SECRET_JWT_TOKEN),
           });
         })
@@ -112,68 +113,61 @@ exports.getMe = (req, res, next) => {
 //-----------------------------------------------------------------------------------------------
 //modification d'un profil utilisateur.
 exports.updateUser = (req, res, next) => {
-  try {
-    if (+req.params.id === req.auth.userId)
-      prisma.user
-        .update({
-          where: { id: +req.params.id },
-          data: {
-            username: req.body.username,
-            description: req.body.description,
-            role: req.body.role,
-          },
-        })
-        .then(() => res.status(200).json({ message: "profil modifié" }))
-        .catch((error) => res.status(400).json({ error }));
-    else {
-      res.status(401).json({ error: "requête non authentifiée" });
-    }
-  } catch {
-    res.status(500).json({ error });
+  if (+req.params.id === req.auth.userId)
+    prisma.user
+      .update({
+        where: { id: +req.params.id },
+        data: {
+          username: req.body.username,
+          description: req.body.description,
+          role: req.body.role,
+        },
+      })
+      .then((data) => res.status(200).json(data, { message: "profil modifié" }))
+      .catch((error) => res.status(400).json({ error }));
+  else {
+    res.status(401).json({ error: "requête non authentifiée" });
   }
 };
 
 //-----------------------------------------------------------------------------------------------
 //modification de la photo de profil utilisateur.
 exports.updateUserPicture = (req, res, next) => {
-  try {
-    if (+req.params.id === req.auth.userId)
-      prisma.user
-        .update({
-          where: { id: +req.params.id },
-          data: {
-            picture: `${req.protocol}://${req.get("host")}/images/${
-              req.file.filename
-            }`,
-          },
-        })
-        .then(() => res.status(200).json({ message: "profil modifié" }))
-        .catch((error) => res.status(400).json({ error }));
-    else {
-      res.status(401).json({ error: "requête non authentifiée" });
-    }
-  } catch {
-    res.status(500).json({ error });
+  if (+req.params.id === req.auth.userId)
+    prisma.user
+      .update({
+        where: { id: +req.params.id },
+        data: {
+          picture: `${req.protocol}://${req.get("host")}/images/${
+            req.file.filename
+          }`,
+        },
+      })
+      .then(() => res.status(200).json({ message: "photo de profil modifié" }))
+      .catch((error) => res.status(400).json({ error }));
+  else {
+    res.status(401).json({ error: "requête non authentifiée" });
   }
 };
 
 //-----------------------------------------------------------------------------------------------
 //suppression d'un profil utilisateur.
 exports.deleteUser = (req, res, next) => {
-  try {
-    if (+req.params.id === req.auth.userId)
-      fs.unlink(`images/${filename}`, () => {
-        prisma.user
-          .delete({
-            where: { id: +req.params.id },
-          })
-          .then(() => res.status(200).json({ message: "profil supprimé" }))
-          .catch((error) => res.status(400).json({ error }));
-      });
-    else {
-      res.status(401).json({ error: "requête non authentifiée" });
-    }
-  } catch {
-    res.status(500).json({ error });
+  // const filename = prisma.user.picture.split("/images/")[1];
+
+  // if (req.file && +req.params.id === req.auth.userId)
+  //   fs.unlink(`images/${filename}`);
+
+  if (+req.params.id === req.auth.userId)
+    prisma.user
+      .delete({
+        where: { id: +req.params.id },
+      })
+      .then((data) =>
+        res.status(200).json(data.id, { message: "profil supprimé" })
+      )
+      .catch((error) => res.status(400).json({ error }));
+  else {
+    res.status(401).json({ error: "requête non authentifiée" });
   }
 };

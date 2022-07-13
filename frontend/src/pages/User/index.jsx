@@ -4,8 +4,17 @@ import Card from '../../components/Card'
 import Update from '../../components/Forms/Update'
 import DeleteButton from '../../components/DeleteButton'
 import Footer from '../../components/Footer'
+import { useAuth } from '../../utils/context'
+import { GetUser } from '../../utils/context/AuthAction'
+import { useEffect } from 'react'
 
 export default function User() {
+  const { user } = useAuth()
+
+  useEffect(() => {
+    GetUser(user.id).then((response) => response.data)
+  }, [user])
+
   return (
     <>
       <Header />
@@ -19,7 +28,11 @@ export default function User() {
           <Underline />
         </div>
         <section className="flex items-center h-auto w-full justify-center">
-          <Card />
+          <Card
+            key={user.id}
+            username={user.username}
+            description={user.description}
+          />
         </section>
         <div className="my-32 flex flex-col">
           <div className="flex md:justify-start justify-center">

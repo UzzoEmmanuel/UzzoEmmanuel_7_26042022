@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 import { AuthContext } from '../AuthContext'
 
-const ROOT_URL = 'http://localhost:8000/api'
+const ROOT_URL = process.env.REACT_APP_ROOT_URL
 const getToken = localStorage.getItem('token')
 const token = getToken
 
@@ -16,9 +16,12 @@ export const AuthProvider = ({ children }) => {
   }, [])
 
   const connect = (token, user) => {
+    console.log(token, user)
     if (token) localStorage.setItem('token', token)
-    setIsAuthenticated(true)
-    setUser(user)
+    if (user) {
+      setIsAuthenticated(true)
+      setUser(user)
+    }
   }
 
   //signUp
@@ -61,9 +64,9 @@ export const AuthProvider = ({ children }) => {
     })
       .then((response) => response.json())
       .then((data) => {
+        console.log(data)
         if (!!data) connect(null, data)
         else logout()
-
         setLoading(false)
       })
   }
@@ -91,6 +94,7 @@ export const AuthProvider = ({ children }) => {
         isAuthenticated,
         setIsAuthenticated,
         user,
+        setUser,
         loginUser,
         signupUser,
         logout,

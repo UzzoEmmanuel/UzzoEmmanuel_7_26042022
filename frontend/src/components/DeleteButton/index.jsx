@@ -1,15 +1,13 @@
 import { TrashIcon } from '@heroicons/react/outline'
-import { deleteProfil } from '../../utils/context/AuthAction'
+import { DeleteUser } from '../../utils/context/AuthAction'
+import { useAuth } from '../../utils/context'
 
 export default function DeleteButton() {
-  function refreshPage() {
-    return window.location.reload(false)
-  }
-
-  const handleSubmit = async () => {
-    await deleteProfil()
-    localStorage.clear()
-    refreshPage()
+  const { user, logout } = useAuth()
+  const handleSubmit = () => {
+    DeleteUser(user.id).then(() => {
+      logout()
+    })
   }
   return (
     <>

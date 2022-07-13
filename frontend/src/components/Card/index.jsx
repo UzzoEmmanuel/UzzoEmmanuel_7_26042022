@@ -1,22 +1,6 @@
 import GenericProfilPicture from '../../assets/profil.png'
-import { getUser } from '../../utils/context/AuthAction'
 
-export default function Card() {
-  const Username = async () => {
-    await getUser().then((res) => {
-      console.log(res.username)
-      return res.username
-    })
-  }
-  Username()
-  const Description = async () => {
-    await getUser().then((res) => {
-      console.log(res.description)
-      return res.description
-    })
-  }
-  Description()
-
+export default function Card({ username, description }) {
   return (
     <>
       <div className="w-80 mx-10 mb-10">
@@ -30,18 +14,13 @@ export default function Card() {
           </div>
           <div className="p-2">
             <h3 className="text-center text-xl text-primary font-bold leading-8">
-              username
+              {username}
             </h3>
-            <table className="text-xs my-3">
-              <tbody>
-                <tr>
-                  <td className="px-2 py-2 text-primary font-semibold">
-                    Description
-                  </td>
-                  <td className="px-2 py-2 text-white font-medium">...</td>
-                </tr>
-              </tbody>
-            </table>
+            <div className="text-xs w-full my-3">
+              <p className="text-center px-2 py-2 text-primary font-semibold">
+                {description}
+              </p>
+            </div>
           </div>
         </div>
       </div>

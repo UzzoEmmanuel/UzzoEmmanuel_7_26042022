@@ -1,22 +1,36 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { UploadIcon } from '@heroicons/react/solid'
-import { updateProfil } from '../../../utils/context/AuthAction'
+import { UpdateUser } from '../../../utils/context/AuthAction'
+import { UpdateUserPicture } from '../../../utils/context/AuthAction'
+import { useAuth } from '../../../utils/context'
 
 export default function Update() {
   const [username, setUsername] = useState()
   const [description, setDescription] = useState()
+  const [picture, setPicture] = useState()
 
-  function refreshPage() {
-    return window.location.reload(false)
+  const { isAuthenticated, user, setUser } = useAuth()
+
+  useEffect(() => {
+    setUsername(user.username)
+    setDescription(user.description)
+  }, [user])
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    if (isAuthenticated) {
+      UpdateUser(user.id, { username, description }).then((data) => {
+        setUser({ ...user, username, description })
+        console.log(data)
+      })
+      console.log({ username })
+    }
   }
 
-  const handleSubmit = async (e) => {
-    e.preventDefault()
-    await updateProfil({
-      username,
-      description,
-    })
-    refreshPage()
+  const handleUpload = (e) => {
+    setPicture(e.target.files[0])
+    UpdateUserPicture(user.id, { picture })
+    console.log({ picture })
   }
 
   return (
@@ -48,6 +62,7 @@ export default function Update() {
                   className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-primary focus:border-primary focus:z-10 sm:text-sm"
                   placeholder="Username"
                   onChange={(e) => setUsername(e.target.value)}
+                  defaultValue={username}
                 />
               </div>
               <div className="mb-5">
@@ -62,6 +77,7 @@ export default function Update() {
                   className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-primary focus:border-primary focus:z-10 sm:text-sm"
                   placeholder="Description"
                   onChange={(e) => setDescription(e.target.value)}
+                  defaultValue={description}
                 />
               </div>
               <div>
@@ -95,6 +111,7 @@ export default function Update() {
                           name="file-upload"
                           type="file"
                           className="sr-only"
+                          onChange={handleUpload}
                         />
                       </label>
                       <p className="pl-1 text-primary"> or drag and drop</p>
