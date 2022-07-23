@@ -1,6 +1,10 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Tab } from '@headlessui/react'
-//import { Heart } from '@heroicons/react/solid'
+import moment from 'moment'
+import PostCard from '../PostCard'
+import Underline from '../Underline'
+import Post from '../Forms/Post'
+import { GetPosts } from '../../utils/services/PostAction'
 
 function classNames(...classes) {
   return classes.filter(Boolean).join(' ')
@@ -8,25 +12,37 @@ function classNames(...classes) {
 
 export default function Switch() {
   let [categories] = useState({
-    All: [],
+    Tout: [],
     Post: [],
-    Média: [],
+    Media: [],
   })
 
+  const [posts, setPosts] = useState([])
+
+  useEffect(() => {
+    GetPosts().then((response) => setPosts(response.data))
+  }, [])
+
   return (
-    <div className="w-full max-w-md px-2 py-16 sm:px-0">
+    <div className="flex flex-col justify-around h-auto w-full mt-20 mb-20">
+      <h1 className="w-auto mx-10 text-3xl text-primary font-bold tracking-widest">
+        TABLEAU DE BORD
+      </h1>
+      <Underline />
+      <Post />
+      <Underline />
       <Tab.Group>
-        <Tab.List className="flex space-x-1 rounded-xl bg-blue-900/20 p-1">
+        <Tab.List className="justify-center flex flex-row mx-10 my-10 rounded-md">
           {Object.keys(categories).map((category) => (
             <Tab
               key={category}
               className={({ selected }) =>
                 classNames(
-                  'w-full rounded-lg py-2.5 text-sm font-medium leading-5 text-blue-700',
-                  'ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2',
+                  'max-w-xs w-full rounded-md py-2.5 text-lg font-medium leading-5 text-primary bg-transparent_background',
+                  'focus:outline-none focus:ring-0',
                   selected
-                    ? 'bg-white shadow'
-                    : 'text-blue-100 hover:bg-white/[0.12] hover:text-white'
+                    ? 'bg-white'
+                    : 'text-primary hover:bg-white/[0.12] hover:text-white'
                 )
               }
             >
@@ -34,43 +50,29 @@ export default function Switch() {
             </Tab>
           ))}
         </Tab.List>
-        <Tab.Panels className="mt-2">
-          {Object.values(categories).map((posts, idx) => (
+        <Tab.Panels className="mx-10">
+          {Object.values(categories).map(() => (
             <Tab.Panel
-              key={idx}
+              key=""
               className={classNames(
-                'rounded-xl bg-white p-3',
-                'ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2'
+                'rounded-xl bg-transparent_background p-3',
+                'ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400'
               )}
             >
-              <ul>
-                {posts.map((post) => (
-                  <li
+              {posts
+                .slice(0)
+                .reverse()
+                .map((post) => (
+                  <PostCard
                     key={post.id}
-                    className="relative rounded-md p-3 hover:bg-gray-100"
-                  >
-                    <h3 className="text-sm font-medium leading-5">
-                      {post.title}
-                    </h3>
-
-                    <ul className="mt-1 flex space-x-1 text-xs font-normal leading-4 text-gray-500">
-                      <li>{post.date}</li>
-                      <li>&middot;</li>
-                      <li>{post.commentCount} comments</li>
-                      <li>&middot;</li>
-                      <li>{post.likeCount} </li>
-                    </ul>
-
-                    {/* <a
-                      href="#"
-                      className={classNames(
-                        'absolute inset-0 rounded-md',
-                        'ring-blue-400 focus:z-10 focus:outline-none focus:ring-2'
-                      )}
-                    /> */}
-                  </li>
+                    username={post.authorId}
+                    title={post.title}
+                    content={post.content}
+                    createdAt={moment(post.createdAt)
+                      .utc()
+                      .format('DD-MM-YYYY')}
+                  />
                 ))}
-              </ul>
             </Tab.Panel>
           ))}
         </Tab.Panels>

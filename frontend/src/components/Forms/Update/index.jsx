@@ -35,13 +35,8 @@ export default function Update() {
 
   return (
     <>
-      <div className="min-h-full md:w-auto w-80 flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8 mb-20 border-4 border-primary rounded-lg bg-transparent_background">
+      <div className="min-h-full md:w-auto w-80 flex items-center justify-center pt-6 pb-12 px-4 sm:px-6 lg:px-8 mb-20 border-4 border-primary rounded-lg bg-transparent_background">
         <div className="max-w-md w-full space-y-8">
-          <div>
-            <h2 className="mt-6 text-center text-3xl font-extrabold text-primary">
-              Update
-            </h2>
-          </div>
           <form
             className="mt-8 space-y-6"
             action="#"
@@ -60,7 +55,7 @@ export default function Update() {
                   type="text"
                   autoComplete="username"
                   className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-primary focus:border-primary focus:z-10 sm:text-sm"
-                  placeholder="Username"
+                  placeholder="Nom"
                   onChange={(e) => setUsername(e.target.value)}
                   defaultValue={username}
                 />
@@ -82,7 +77,7 @@ export default function Update() {
               </div>
               <div>
                 <label className="block text-sm font-bold text-primary">
-                  Profile picture
+                  Photo de profil
                 </label>
                 <div className="mt-1 flex justify-center px-6 pt-5 pb-6 border-2 border-primary border-dashed rounded-md">
                   <div className="space-y-1 text-center">
@@ -105,7 +100,7 @@ export default function Update() {
                         htmlFor="file-upload"
                         className="relative cursor-pointer bg-white px-1 rounded-md font-medium text-primary hover:text-white hover:bg-primary focus-within:outline-none focus-within:ring-1 focus-within:ring-offset-1 focus-within:ring-white"
                       >
-                        <span>Upload a file</span>
+                        <span>Télécharger un fichier</span>
                         <input
                           id="file-upload"
                           name="file-upload"
@@ -114,10 +109,10 @@ export default function Update() {
                           onChange={handleUpload}
                         />
                       </label>
-                      <p className="pl-1 text-primary"> or drag and drop</p>
+                      <p className="pl-1 text-primary">ou glisser déposer</p>
                     </div>
                     <p className="text-sm text-primary">
-                      PNG, JPG, GIF up to 10MB
+                      PNG, JPG, GIF jusqu'à 10MB
                     </p>
                   </div>
                 </div>
@@ -134,7 +129,7 @@ export default function Update() {
                     aria-hidden="true"
                   />
                 </span>
-                Update
+                Modifier
               </button>
             </div>
           </form>

@@ -14,6 +14,9 @@ router.get("/getPosts", auth, postCtrl.getPosts);
 //accès à un post.
 router.get("/getPost/:id", auth, postCtrl.getPost);
 
+//accès à tous les posts d'un utilisateur.
+router.get("/getMyPosts/:id", auth, postCtrl.getMyPosts);
+
 //modification d'un post.
 router.put("/putPost/:id", auth, postCtrl.updatePost);
 

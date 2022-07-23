@@ -28,7 +28,7 @@ export default function SignUp() {
         <div className="max-w-md w-full space-y-8">
           <div>
             <h2 className="mt-6 text-center text-3xl font-extrabold text-primary">
-              Sign up
+              Inscription
             </h2>
           </div>
           <form
@@ -51,7 +51,7 @@ export default function SignUp() {
                   autoComplete="username"
                   required
                   className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-primary focus:border-primary focus:z-10 sm:text-sm"
-                  placeholder="Username"
+                  placeholder="Nom"
                 />
               </div>
               <div className="mb-5">
@@ -66,7 +66,7 @@ export default function SignUp() {
                   autoComplete="email"
                   required
                   className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-primary focus:border-primary focus:z-10 sm:text-sm"
-                  placeholder="Email address"
+                  placeholder="Adresse mail"
                 />
               </div>
               <div className="mb-5">
@@ -81,7 +81,7 @@ export default function SignUp() {
                   autoComplete="current-password"
                   required
                   className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-primary focus:border-primary focus:z-10 sm:text-sm"
-                  placeholder="Password"
+                  placeholder="Mot de passe"
                 />
               </div>
             </div>

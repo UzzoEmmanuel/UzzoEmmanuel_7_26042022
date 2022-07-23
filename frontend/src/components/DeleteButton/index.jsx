@@ -22,7 +22,7 @@ export default function DeleteButton() {
             aria-hidden="true"
           />
         </span>
-        Delete
+        Supprimer
       </button>
     </>
   )

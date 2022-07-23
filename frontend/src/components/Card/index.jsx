@@ -4,7 +4,7 @@ export default function Card({ username, description }) {
   return (
     <>
       <div className="w-80 mx-10 mb-10">
-        <div className="bg-transparent_background border-4 border-primary rounded-lg shadow-xl rounded-lg py-3">
+        <div className="bg-transparent_background border-4 border-primary rounded-md shadow-xl rounded-lg py-3">
           <div className="photo-wrapper p-2">
             <img
               className="w-32 h-32 border-2 border-primary rounded-full mx-auto"
