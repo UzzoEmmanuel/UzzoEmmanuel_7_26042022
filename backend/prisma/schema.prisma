@@ -38,15 +38,9 @@ model Post {
   updatedAt DateTime @updatedAt
   author User @relation(fields: [authorId], references: [id])
   authorId Int
-  categories Category[] @relation(references: [id])
+  category Type
   comments Comment[]
   likes Like[]
-}
-
-model Category {
-  id    Int    @id @default(autoincrement())
-  type Type @default(value: TEXT)
-  posts Post[] @relation(references: [id])
 }
 
 enum Type  {

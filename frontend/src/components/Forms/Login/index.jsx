@@ -25,7 +25,7 @@ export default function Login() {
         <div className="max-w-md w-full space-y-8">
           <div>
             <h2 className="mt-6 text-center text-3xl font-extrabold text-primary">
-              Log in
+              Connexion
             </h2>
           </div>
           <form
@@ -48,7 +48,7 @@ export default function Login() {
                   autoComplete="email"
                   required
                   className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-primary focus:border-primary focus:z-10 sm:text-sm"
-                  placeholder="Email address"
+                  placeholder="Adresse mail"
                 />
               </div>
               <div>
@@ -63,7 +63,7 @@ export default function Login() {
                   autoComplete="current-password"
                   required
                   className="appearance-none rounded-md relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 focus:outline-none focus:ring-primary focus:border-primary focus:z-10 sm:text-sm"
-                  placeholder="Password"
+                  placeholder="Mot de passe"
                 />
               </div>
             </div>
@@ -78,7 +78,7 @@ export default function Login() {
                     aria-hidden="true"
                   />
                 </span>
-                Log in
+                Connexion
               </button>
             </div>
           </form>

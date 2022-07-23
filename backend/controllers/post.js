@@ -9,10 +9,11 @@ exports.createPost = (req, res, next) => {
       data: {
         title: req.body.title,
         content: req.body.content,
+        category: req.body.category,
         authorId: req.auth.userId,
       },
     })
-    .then(() => res.status(201).json({ message: "post créé" }))
+    .then((post) => res.status(201).json({ post, message: "post créé" }))
     .catch((error) => res.status(400).json({ error }));
 };
 
@@ -30,8 +31,17 @@ exports.getPosts = (req, res, next) => {
 exports.getPost = (req, res, next) => {
   prisma.post
     .findUnique({ where: { id: +req.params.id } })
-    .then((post) => res.status(200).json(post, { message: "post trouvé" }))
+    .then((post) => res.status(200).json({ post, message: "post trouvé" }))
     .catch(() => res.status(400).json({ error: "post non trouvé" }));
+};
+
+//-----------------------------------------------------------------------------------------------
+//accès à tous les posts d'un utilisateur.
+exports.getMyPosts = (req, res, next) => {
+  prisma.post
+    .findMany({ where: { authorId: +req.params.id } })
+    .then((posts) => res.status(200).json(posts))
+    .catch((error) => res.status(400).json({ error: error }));
 };
 
 //-----------------------------------------------------------------------------------------------
@@ -72,7 +82,7 @@ exports.deletePost = (req, res, next) => {
             where: { id: +req.params.id },
           })
           .then((post) => {
-            res.status(200).json({ post, message: "post supprimé" });
+            res.status(200).json({ post: post.id, message: "post supprimé" });
           })
           .catch((error) => res.status(400).json({ error }));
       else {

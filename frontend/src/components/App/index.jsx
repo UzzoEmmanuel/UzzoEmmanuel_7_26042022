@@ -4,6 +4,7 @@ import Connexion from '../../pages/Connexion'
 import Dashboard from '../../pages//Dashboard'
 import User from '../../pages//User'
 import Users from '../../pages//Users'
+import MyPosts from '../../pages/MyPosts'
 import Error from '../../pages//Error'
 import { useAuth } from '../../utils/context/AuthContext'
 
@@ -21,6 +22,7 @@ export default function App() {
         <Route path="/" element={<Dashboard />} />
         <Route path="/users" element={<Users />} />
         <Route path="/user" element={<User />} />
+        <Route path="/myPosts" element={<MyPosts />} />
         <Route path="/*" element={<Error />} />
       </Routes>
     </Router>
